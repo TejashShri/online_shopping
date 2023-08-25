@@ -1,20 +1,21 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import { useParams } from "react-router";
+import { getProductById } from "../services/ProductService";
 
 const ProductDetails = () => {
 
-    const url = 'https://fakestoreapi.com/products';
-    const [productData, setProductData] = useState({ id: '', title: '' });
+    const productParam = useParams();
+    const [productData, setProductData] = useState({ id: '', title: ''});
 
     useEffect(() => {
-        axios.get(url)
+        getProductById(productParam.id)
             .then((resp) => {
                 console.log(resp.data);
                 setProductData(resp.data);
             })
             .catch((err) => { console.log(err); });
-    }, []);
+    }, [productParam.id]);
 
     return (
 
@@ -25,15 +26,16 @@ const ProductDetails = () => {
                 </div>
                 <div className="col-8">
                     <div>
-                        <p className="display-5 text-primary">jdhjhf</p>
-                        <hr />
-                        <p className="lead"></p>
-                        <div>
+                        <p className="display-5 text-primary">{productData.id}</p>
+                        <p className="display-5 text-dark">{productData.category}</p>
+                        <p className="display-3 text-dark">{productData.title}</p>
+                        
+                        <div className="py-3 my-3">
                             {
-                                
-                                
+                                <img width="70%" src={productData.image} alt={productData.title} />
                             }
                         </div>
+                        <p>{'Price: $'}{productData.price}<br></br>{'Description: '}{productData.description} </p>
                         
                     </div>
                     
