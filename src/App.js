@@ -5,6 +5,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AppRoutes from './AppRoutes';
 
+// some code 
+
 function App() {
 
   return (
